@@ -1,0 +1,92 @@
+---
+# tasks file for faba.docker
+- name: "Include Distro specific vars"
+  include_vars: "{{ inventory_dir }}/vars/distros/{{ ansible_lsb.id }}.yml"
+  tags:
+    - docker
+
+- name: "Download Docker"
+  get_url:
+    url: "https://get.docker.com/"
+    dest: "/tmp/docker.sh"
+  #when: ansible_lsb.id == "Ubuntu"
+  tags:
+    - docker
+
+- name: "Install Docker"
+  shell: "sh /tmp/docker.sh"
+  args:
+    creates: "/usr/bin/docker"
+  #when: ansible_lsb.id == "Ubuntu"
+  tags:
+    - docker
+
+# Install Docker for Non-Ubuntu distros
+#- name: "Install Docker"
+#  package:
+#    name: "{{ docker_package }}"
+#    state: present
+#  when: ansible_lsb.id != "Ubuntu"
+#  tags:
+#    - docker
+
+# - name: "Download Docker"
+#   get_url:
+#     url: "http://get.docker.com"
+#     dest: "/tmp/get-docker.sh"
+#   tags:
+#     - docker
+#   when: ansible_nodename == "raspberrypi"
+
+# - name: "Make script executeable"
+#   file:
+#     path: "/tmp/docker.sh"
+#     mode: "744"
+#     state: touch
+#   tags:
+#     - docker
+
+# - name: "Install Docker"
+#   shell: "sh /tmp/docker.sh"
+#   args:
+#     creates: "/usr/bin/docker"
+#   tags:
+#     - docker
+#   when: ansible_nodename == "raspberrypi"
+
+- name: "Install Python-Pip"
+  package:
+    name: "python-pip"
+    state: present
+  tags:
+    - docker
+
+- name: "Remove docker-py"
+  pip:
+    name: docker-py
+    #version: 1.9.0
+    state: absent
+  tags:
+    - docker
+
+- name: "Install docker"
+  pip:
+    name: docker-py
+    #version: 1.9.0
+    state: present
+  tags:
+    - docker
+
+- name: "Install SSL_Hostname_match"
+  package:
+    name: "python-backports.ssl-match-hostname"
+    state: present
+  tags:
+    - docker
+
+- name: "Ensure Docker Service is running"
+  service:
+    name: "{{ docker_service }}"
+    state: "started"
+  tags:
+    - docker

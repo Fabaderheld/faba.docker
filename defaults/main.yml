@@ -1,0 +1,4 @@
+---
+# defaults file for faba.docker
+
+docker_appdata: /appdata
