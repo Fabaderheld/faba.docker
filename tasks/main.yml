@@ -1,10 +1,5 @@
 ---
 # tasks file for faba.docker
-- name: "Include Distro specific vars"
-  include_vars: "{{ inventory_dir }}/vars/distros/{{ ansible_lsb.id }}.yml"
-  tags:
-    - docker
-
 - name: "Download Docker"
   get_url:
     url: "https://get.docker.com/"
@@ -86,7 +81,7 @@
 
 - name: "Ensure Docker Service is running"
   service:
-    name: "{{ docker_service }}"
+    name: "Docker"
     state: "started"
   tags:
     - docker
