@@ -81,7 +81,7 @@
 
 - name: "Ensure Docker Service is running"
   service:
-    name: "Docker"
+    name: "docker"
     state: "started"
   tags:
     - docker
