@@ -68,6 +68,7 @@
   pip:
     name: docker
     state: present
+    executable: pip3
   tags:
     - docker
 
