@@ -7,7 +7,7 @@
     state: absent
   tags:
     - docker
-    
+
 - name: "Download Docker"
   get_url:
     url: "https://get.docker.com/"
@@ -64,21 +64,12 @@
   tags:
     - docker
 
-- name: "Remove docker-py"
+- name: "Install docker"
   pip:
-    name: docker-py
-    #version: 1.9.0
-    state: absent
+    name: docker
+    state: present
   tags:
     - docker
-
-# - name: "Install docker"
-#   pip:
-#     name: docker-py
-#     #version: 1.9.0
-#     state: present
-#   tags:
-#     - docker
 
 - name: "Install SSL_Hostname_match"
   package:
