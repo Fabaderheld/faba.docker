@@ -2,11 +2,11 @@
 # tasks file for faba.docker
 - name: "Check for docker-py module"
   shell: "pip list | grep 'docker-py '"
-  regsiter: docker_py
+  register: docker_py
 
 - name: "Check for docker module"
   shell: "pip3 list | grep 'docker '"
-  regsiter: docker_python3
+  register: docker_python3
 
 - name: "Remove docker-py module"
   pip:
