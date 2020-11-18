@@ -1,13 +1,13 @@
 ---
 # tasks file for faba.docker
 - name: "Check for docker-py module"
-  shell: "pip list | grep 'docker-py '"
+  shell: "pip list | grep 'docker-py ' || true"
   register: docker_py
   ignore_errors: true
   changed_when: false
 
 - name: "Check for docker module"
-  shell: "pip3 list | grep 'docker '"
+  shell: "pip3 list | grep 'docker ' || true"
   register: docker_python3
   ignore_errors: true
   changed_when: false
