@@ -1,11 +1,29 @@
 ---
 # tasks file for faba.docker
-- name: "Remove docker-py"
+- name: "Check for docker-py module"
+  shell: "pip list | grep 'docker-py '"
+  regsiter: docker_py
+
+- name: "Check for docker module"
+  shell: "pip3 list | grep 'docker '"
+  regsiter: docker_python3
+
+- name: "Remove docker-py module"
   pip:
     name: docker-py
     #version: 1.9.0
     state: absent
     executable: pip
+  tags:
+    - docker
+
+- name: "Remove docker module"
+  pip:
+    name: docker
+    #version: 1.9.0
+    state: absent
+    executable: pip3
+  when: docker_py != "" and docker_python3 != ""
   tags:
     - docker
 
@@ -65,7 +83,7 @@
   tags:
     - docker
 
-- name: "Install docker"
+- name: "Install docker module"
   pip:
     name: docker
     state: present
