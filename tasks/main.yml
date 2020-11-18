@@ -3,10 +3,12 @@
 - name: "Check for docker-py module"
   shell: "pip list | grep 'docker-py '"
   register: docker_py
+  changed_when: false
 
 - name: "Check for docker module"
   shell: "pip3 list | grep 'docker '"
   register: docker_python3
+  changed_when: false
 
 - name: "Remove docker-py module"
   pip:
@@ -23,7 +25,7 @@
     #version: 1.9.0
     state: absent
     executable: pip3
-  when: docker_py != "" and docker_python3 != ""
+  when: docker_py.stdout | length > 0 and docker_python3.stdout | length > 0
   tags:
     - docker
 
