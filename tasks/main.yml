@@ -5,6 +5,7 @@
     name: docker-py
     #version: 1.9.0
     state: absent
+    executable: pip
   tags:
     - docker
 
