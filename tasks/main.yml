@@ -12,12 +12,16 @@
   ignore_errors: true
   changed_when: false
 
+- name: "Check if Python-pip is installed"
+  package_facts:
+
 - name: "Remove docker-py module"
   pip:
     name: docker-py
     #version: 1.9.0
     state: absent
     executable: pip
+  when: "'python-pip' in ansible_facts.packages"
   tags:
     - docker
 
