@@ -51,13 +51,6 @@
   tags:
     - docker
 
-- name: "Install Python-Pip"
-  package:
-    name: "python-pip"
-    state: present
-  tags:
-    - docker
-
 - name: "Install docker module"
   pip:
     name: docker
