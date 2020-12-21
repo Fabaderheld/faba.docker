@@ -5,15 +5,21 @@
   register: docker_py
   ignore_errors: true
   changed_when: false
+  tags:
+    - docker
 
 - name: "Check for docker module"
   shell: "pip3 list | grep 'docker ' || true"
   register: docker_python3
   ignore_errors: true
   changed_when: false
+  tags:
+    - docker
 
 - name: "Check if Python-pip is installed"
   package_facts:
+  tags:
+    - docker
 
 - name: "Remove docker-py module"
   pip:
