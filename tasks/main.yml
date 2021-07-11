@@ -40,6 +40,15 @@
   when: docker_py.stdout | length > 0 and docker_python3.stdout | length > 0
   tags:
     - docker
+    
+    
+- name: "Remove docker from snap"
+  snap:
+    name: docker
+    state: absent
+  tags:
+    - docker
+  ignore_errors: yes
 
 - name: "Download Docker"
   get_url:
